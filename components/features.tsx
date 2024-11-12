@@ -28,7 +28,7 @@ export function FeatureGrid(props: {
   return (
     <section
       id="features"
-      className="container flex flex-col items-center justify-center gap-5 min-h-screen py-16 md:py-24 lg:py-32"
+      className="relative z-1 container flex flex-col items-center justify-center gap-5 min-h-screen py-16 md:py-24 lg:py-32"
     >
       <div className="mx-auto flex max-w-6xl flex-col items-center space-y-4 text-center">
         <h2 className="text-3xl md:text-4xl font-semibold">

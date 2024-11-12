@@ -7,13 +7,17 @@ import {
   OutMode,
 } from "@tsparticles/engine";
 import { useTheme } from "next-themes";
-import { loadSlim } from "@tsparticles/slim"; // Certifique-se de ter instalado com `npm install @tsparticles/slim`
+import { loadSlim } from "@tsparticles/slim";
 
 const Particle = () => {
   const [init, setInit] = useState(false);
+  const [mounted, setMounted] = useState(false); 
   const { theme } = useTheme();
 
-  // Inicializa o motor de partículas uma vez
+  useEffect(() => {
+    setMounted(true); 
+  }, []);
+
   useEffect(() => {
     initParticlesEngine(async (engine) => {
       await loadSlim(engine);
@@ -22,14 +26,10 @@ const Particle = () => {
     });
   }, []);
 
-  const particlesLoaded = async (container?: Container): Promise<void> => {
-    console.log(container);
-  };
-
   const options: ISourceOptions = useMemo(
     () => ({
       background: {},
-      fpsLimit: 60, // Limita os frames por segundo para otimizar desempenho
+      fpsLimit: 60,
       interactivity: {
         events: {
           onClick: {
@@ -53,59 +53,58 @@ const Particle = () => {
       },
       particles: {
         color: {
-          value: theme === "dark" ? "#ffffff" : "#f98137", // Altera a cor conforme o tema
+          value: mounted && theme === "dark" ? "#ffffff" : "#f98137",
         },
         move: {
-          enable: true, // Habilita o movimento
-          speed: 0.3, // Define a velocidade para o mínimo possível
-          direction: MoveDirection.none, // Movimento em todas as direções
-            random: false,
-            straight: false,
-            outModes: {
+          enable: true,
+          speed: 0.3,
+          direction: MoveDirection.none,
+          random: false,
+          straight: false,
+          outModes: {
             default: OutMode.out,
-            },
-            attract: {
+          },
+          attract: {
             enable: false,
             rotateX: 600,
             rotateY: 1200,
-            },
           },
-          number: {
-            value: 80,
-            density: {
+        },
+        number: {
+          value: 80,
+          density: {
             enable: false,
-            },
           },
-          opacity: {
-            value: 0.9,
+        },
+        opacity: {
+          value: 0.9,
+        },
+        shape: {
+          type: "circle",
+        },
+        size: {
+          value: mounted && theme === "dark" ? 1 : 2,
+          random: {
+            enable: true,
+            minimumValue: mounted && theme === "dark" ? 0.2 : 0.5,
+            maximumValue: mounted && theme === "dark" ? 1 : 2,
           },
-          shape: {
-            type: "circle",
-          },
-          size: {
-            value: theme === "dark" ? 1 : 2, // Tamanho menor se for escuro
-            random: { 
-            enable: true, 
-            minimumValue: theme === "dark" ? 0.2 : 0.5, 
-            maximumValue: theme === "dark" ? 1 : 2 
-            },
-          },
-          links: {
-            enable: false, // Desativa as linhas de ligação
+        },
+        links: {
+          enable: false,
         },
       },
       detectRetina: true,
     }),
-    [theme] // Adiciona `theme` como dependência para atualizar as cores dinamicamente
+    [mounted, theme]
   );
 
   if (init) {
     return (
       <Particles
         id="tsparticles"
-        particlesLoaded={particlesLoaded}
         options={options}
-        className="absolute inset-0 z-0" // Posiciona as partículas atrás do conteúdo
+        className="absolute inset-0 z-0"
       />
     );
   }
