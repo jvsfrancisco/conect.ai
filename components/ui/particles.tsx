@@ -11,13 +11,7 @@ import { loadSlim } from "@tsparticles/slim";
 
 const Particle = () => {
   const [init, setInit] = useState(false);
-  const [mounted, setMounted] = useState(false); 
   const { theme } = useTheme();
-  console.log("theme: ", theme);
-
-  useEffect(() => {
-    setMounted(true); 
-  }, []);
 
   useEffect(() => {
     initParticlesEngine(async (engine) => {
@@ -54,7 +48,7 @@ const Particle = () => {
       },
       particles: {
         color: {
-          value: mounted && theme === "dark" || "system" ? "#ffffff" : "#f98137",
+          value: theme === "dark" ? "#ffffff" : "#f98137",
         },
         move: {
           enable: true,
@@ -84,11 +78,11 @@ const Particle = () => {
           type: "circle",
         },
         size: {
-          value: mounted && theme === "dark" || "system" ? 1 : 2,
+          value: theme === "dark" ? 1 : 2,
           random: {
             enable: true,
-            minimumValue: mounted && theme === "dark" || "system" ? 0.2 : 0.5,
-            maximumValue: mounted && theme === "dark" || "system" ? 1 : 2,
+            minimumValue: theme === "dark" ? 0.2 : 0.5,
+            maximumValue: theme === "dark" ? 1 : 2,
           },
         },
         links: {
@@ -97,7 +91,7 @@ const Particle = () => {
       },
       detectRetina: true,
     }),
-    [mounted, theme]
+    [theme]
   );
 
   if (init) {

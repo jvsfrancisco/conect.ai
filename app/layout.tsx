@@ -6,7 +6,7 @@ import { Provider } from "./provider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "OportuniMatch",
+  title: "Conect.AI",
   description: "Conectando alunos ao mercado",
 };
 

@@ -130,7 +130,7 @@ html {
 }
 
 .pulse {
-  background: linear-gradient(45deg, #f98137, #FF4500);
+  background: linear-gradient(45deg, #F8711DFF, #FF0800FF);
   cursor: pointer;
   box-shadow: 0 4px 10px rgba(255, 140, 0, 0.5); /* Sombra leve destacando */
   transition: box-shadow 0.3s ease;

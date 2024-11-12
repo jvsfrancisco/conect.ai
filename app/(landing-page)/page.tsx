@@ -10,7 +10,6 @@ export default async function IndexPage() {
   return (
     <>
       <Hero 
-        title1="OpotuniMatch:"
         title2=" Conectando Jovens ao Mercado"
         subtitle="Encontre o match ideal entre seu currículo universitário e a vaga de estágio perfeita."
         primaryCtaText="Comece Agora"
@@ -48,8 +47,8 @@ export default async function IndexPage() {
                   y2="208"
                   fill="none"
                   stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                   strokeWidth="22"
                 ></line>
                 <line
@@ -59,8 +58,8 @@ export default async function IndexPage() {
                   y2="192"
                   fill="none"
                   stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                   strokeWidth="22"
                 ></line>
               </svg>

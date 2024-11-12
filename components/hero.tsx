@@ -7,7 +7,6 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 
 export function Hero(props: {
-  title1: string;
   title2: string;
   subtitle: string;
   credits?: React.ReactNode;
@@ -26,20 +25,22 @@ export function Hero(props: {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+  console.log("headerVisible", headerVisible);
 
   return (
     <section
       id="inicio"
-      className={`relative flex items-center justify-center min-h-screen py-16 md:py-24 lg:py-32 transition-all duration-500 ${headerVisible ? "mt-18" : ""
-        }`}
+      className={`relative flex items-center justify-center min-h-screen py-16 md:py-24 lg:py-32 transition-all duration-500 ${
+    headerVisible ? "mt-18" : "pt-18"
+  }`}
     >
       <Particle />
 
       <div className="container relative z-10 flex max-w-[64rem] flex-col items-center gap-8 text-center">
         <h1 className="font-heading font-medium text-5xl sm:text-5xl lg:text-7xl">
-          {props.title1}
+          Conect<span className="bg-clip-text text-transparent bg-gradient-to-r from-[#ff8c45] to-[#ff0000]">.</span>AI
         </h1>
-        <span className="font-heading font-semibold text-4xl sm:text-4xl lg:text-6xl bg-clip-text text-transparent bg-gradient-to-r from-[#f98137] to-[#FF4500]">
+        <span className="font-heading font-semibold text-4xl sm:text-4xl lg:text-6xl bg-clip-text text-transparent bg-gradient-to-r from-[#ff8c45] to-[#ff0000]">
           {props.title2}
         </span>
         <p className="max-w-[42rem] leading-normal text-muted-foreground text-2xl sm:text-3xl sm:leading-8">

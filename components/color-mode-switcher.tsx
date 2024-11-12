@@ -3,9 +3,17 @@
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Button } from "./ui/button";
+import { useEffect } from "react";
 
 export function ColorModeSwitcher() {
-  const { setTheme } = useTheme();
+  const { theme, setTheme } = useTheme();
+
+  useEffect(() => {
+    if (theme === "system") {
+      const nowTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      setTheme(nowTheme);
+    }
+  }, []);
 
   return (
     <>
