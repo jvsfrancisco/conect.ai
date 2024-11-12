@@ -13,6 +13,7 @@ const Particle = () => {
   const [init, setInit] = useState(false);
   const [mounted, setMounted] = useState(false); 
   const { theme } = useTheme();
+  console.log("theme: ", theme);
 
   useEffect(() => {
     setMounted(true); 
