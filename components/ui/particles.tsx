@@ -54,7 +54,7 @@ const Particle = () => {
       },
       particles: {
         color: {
-          value: mounted && theme === "dark" ? "#ffffff" : "#f98137",
+          value: mounted && theme === "dark" || "system" ? "#ffffff" : "#f98137",
         },
         move: {
           enable: true,
@@ -84,11 +84,11 @@ const Particle = () => {
           type: "circle",
         },
         size: {
-          value: mounted && theme === "dark" ? 1 : 2,
+          value: mounted && theme === "dark" || "system" ? 1 : 2,
           random: {
             enable: true,
-            minimumValue: mounted && theme === "dark" ? 0.2 : 0.5,
-            maximumValue: mounted && theme === "dark" ? 1 : 2,
+            minimumValue: mounted && theme === "dark" || "system" ? 0.2 : 0.5,
+            maximumValue: mounted && theme === "dark" || "system" ? 1 : 2,
           },
         },
         links: {
