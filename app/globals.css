@@ -135,3 +135,13 @@ html {
   box-shadow: 0 4px 10px rgba(255, 140, 0, 0.5); /* Sombra leve destacando */
   transition: box-shadow 0.3s ease;
 }
+
+.ico {
+  svg {
+    width: 3rem;
+    height: auto;
+    @media (min-width: 800px) {
+      width: 4rem;
+    }
+  }
+}

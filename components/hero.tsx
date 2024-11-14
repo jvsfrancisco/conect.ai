@@ -30,8 +30,7 @@ export function Hero(props: {
   return (
     <section
       id="inicio"
-      className={`relative flex items-center justify-center min-h-screen py-16 md:py-24 lg:py-32 transition-all duration-500 ${
-    headerVisible ? "mt-18" : "pt-18"
+      className={`relative flex items-center justify-center min-h-screen py-16 md:py-24 lg:py-32 transition-all duration-500 
   }`}
     >
       <Particle />
