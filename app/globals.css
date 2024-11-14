@@ -145,3 +145,109 @@ html {
     }
   }
 }
+
+/* Estilo para esconder o input de arquivo real */
+.input-file {
+  opacity: 0;
+  position: absolute;
+  z-index: -1;
+}
+
+/* Estilo do botão personalizado */
+.custom-file-upload {
+  display: inline-block;
+  padding: 10px 20px;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  text-align: center;
+  transition: background-color 0.3s ease;
+  &:hover {
+    background: linear-gradient(45deg, #F8711DFF, #FF0800FF);
+    animation: pulse-hover 1.5s;
+  }
+}
+
+.input-container {
+  position: relative;
+  width: 100%;
+  margin-bottom: 20px;
+  margin-top: 40px;
+}
+
+.styled-input {
+  width: 100%;
+  border: none;
+  border-bottom: 2px solid #fff;
+  background: transparent;
+  padding: 10px 30px 10px 10px; /* Adicione padding à direita para o ícone */
+  color: #fff;
+  font-size: 1rem;
+  transition: border-bottom 0.3s ease;
+}
+
+.styled-input:focus {
+  outline: none;
+  border-bottom: 2px solid #F8711DFF;
+}
+
+.input-label {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  color: #fff;
+  transition: all 0.3s ease;
+}
+
+.styled-input:focus ~ .input-label,
+.styled-input:not(:placeholder-shown) ~ .input-label {
+  top: -10px;
+  font-size: 0.75rem;
+  color: #fff;
+}
+
+.input-container svg {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1.5rem; /* Ajuste o tamanho do ícone */
+  height: 1.5rem;
+  fill: #fff; /* Cor do ícone */
+}
+
+.styled-textarea {
+  width: 100%;
+  border: none;
+  border-bottom: 2px solid #fff;
+  background-color: transparent;
+  color: #fff;
+  padding: 0.5rem 0;
+  font-size: 1rem;
+  resize: none;
+  transition: border-bottom 0.3s ease;
+}
+
+.styled-textarea:focus {
+  outline: none;
+  border-bottom: 2px solid #F8711DFF;
+}
+
+.styled-textarea:focus ~ .input-label,
+.styled-textarea:not(:placeholder-shown) ~ .input-label {
+  transform: translateY(-2rem);
+  font-size: 0.75rem;
+  color: #ffffff;
+}
+
+.input-label {
+  position: absolute;
+  left: 0;
+  top: 0.75rem;
+  font-size: 1rem;
+  color: #fff;
+  pointer-events: none;
+  transition: all 0.3s ease;
+}

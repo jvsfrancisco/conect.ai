@@ -1,25 +1,40 @@
-import * as React from "react"
+import React, { ChangeEvent, ReactNode } from 'react';
 
-import { cn } from "@/lib/utils"
-
-export interface InputProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {}
-
-const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, ...props }, ref) => {
-    return (
+export const Input: React.FC<InputProps> = ({
+  name,
+  children,
+  type,
+  value,
+  handleChange,
+  typeSpan,
+  disabled = false,
+}) => {
+  return (
+    <div className="input-container">
       <input
+        name={name}
         type={type}
-        className={cn(
-          "flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50",
-          className
-        )}
-        ref={ref}
-        {...props}
+        autoComplete="off"
+        value={value}
+        placeholder=" "
+        onChange={handleChange}
+        disabled={disabled}
+        required
+        className="styled-input"
       />
-    )
-  }
-)
-Input.displayName = "Input"
+      <span className="input-label">{typeSpan}</span>
+      {children}
+    </div>
 
-export { Input }
+  );
+};
+
+interface InputProps {
+  name: string;
+  children: ReactNode;
+  type: string;
+  value: string;
+  handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  typeSpan: string;
+  disabled?: boolean;
+}

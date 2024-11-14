@@ -9,6 +9,7 @@ import { Logo } from "./logo";
 import { Button } from "./ui/button";
 
 interface NavProps {
+  forms?: boolean;
   items?: {
     title: string;
     href: string;
@@ -52,7 +53,7 @@ function DesktopItems(props: NavProps) {
           key={index}
           href={item.disabled ? "#" : item.href}
           className={cn(
-            "flex items-center text-xl font-medium transition-colors hover:text-foreground/80 sm:text-xl",
+            "flex items-center text-xl font-medium transition-colors hover:bg-clip-text hover:text-transparent hover:bg-gradient-to-r from-[#ff8c45] to-[#ff0000] sm:text-xl",
             item.href.startsWith(`/${segment}`)
               ? "text-foreground"
               : "text-foreground/60",
@@ -68,20 +69,22 @@ function DesktopItems(props: NavProps) {
   );
 }
 
-export function LandingPageHeader(props: NavProps) {
+export function LandingPageHeader({ forms = false, items }: NavProps) {
   const [showMobileMenu, setShowMobileMenu] = React.useState<boolean>(false);
-  const [isVisible, setIsVisible] = React.useState<boolean>(false);
+  const [isVisible, setIsVisible] = React.useState<boolean>(forms);
 
-  React.useEffect(() => {
-    const handleScroll = () => {
-      setIsVisible(window.scrollY > 0); // Exibe o header quando o scroll é maior que 0
-    };
+  if (!forms) {
+    React.useEffect(() => {
+      const handleScroll = () => {
+        setIsVisible(window.scrollY > 0); // Exibe o header quando o scroll é maior que 0
+      };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
+      window.addEventListener("scroll", handleScroll);
+      return () => {
+        window.removeEventListener("scroll", handleScroll);
+      };
+    }, []);
+  }
 
   return (
     <header
@@ -94,7 +97,7 @@ export function LandingPageHeader(props: NavProps) {
         <div className="flex items-center gap-4 md:gap-10">
           <Logo className="hidden md:flex" />
 
-          {props.items?.length ? <DesktopItems items={props.items} /> : null}
+          {items?.length ? <DesktopItems items={items} /> : null}
 
           <Button
             className="space-x-2 md:hidden"
@@ -111,7 +114,7 @@ export function LandingPageHeader(props: NavProps) {
 
           <Logo className="md:hidden" />
 
-          {showMobileMenu && props.items && <MobileItems items={props.items} />}
+          {showMobileMenu && items && <MobileItems items={items} />}
         </div>
 
         <div className="flex gap-4 items-center">

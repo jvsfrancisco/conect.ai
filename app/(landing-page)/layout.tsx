@@ -8,12 +8,11 @@ export default function Layout(props: { children: React.ReactNode }) {
         items={[
           { title: "Início", href: "/#inicio" },
           { title: "Como funciona?", href: "/#comofuncionamos" },
-          { title: "Depoimentos", href: "/#depoimentos" },
         ]}
       />
       <main className="flex-1">{props.children}</main>
       <Footer
-        builtBy="OportuniMatch"
+        builtBy="Conect.AI"
         builtByLink=""
         githubLink="https://github.com/jvsfrancisco"
         twitterLink="https://twitter.com/stack_auth"
