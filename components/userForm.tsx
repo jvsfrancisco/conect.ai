@@ -16,6 +16,7 @@ export function UserFormCard() {
     name: "",
     email: "",
     resume: null as File | null,
+    resumeContent: "",
     jobDescription: "",
   });
 
@@ -29,18 +30,50 @@ export function UserFormCard() {
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     if (e.target.files && e.target.files.length > 0) {
+      const file = e.target.files[0];
       setFormData((prevData) => ({
         ...prevData,
-        resume: e.target.files ? e.target.files[0] : null,
+        resume: file,
       }));
+
+      const reader = new FileReader();
+      reader.onload = () => {
+        const text = reader.result as string;
+        setFormData((prevData) => ({
+          ...prevData,
+          resumeContent: text, // Adicione o conteúdo do arquivo ao state
+        }));
+      };
+      reader.readAsText(file); // Lê o arquivo como texto
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form Data:", formData);
-    // Aqui você pode fazer o upload do arquivo e enviar os dados do formulário
+
+    if (!formData.resumeContent) {
+      alert("Por favor, faça upload de um arquivo antes de enviar.");
+      return;
+    }
+
+    try {
+      const data = { name: formData.name, resume: formData.resumeContent, jobDescription: formData.jobDescription } // Não envie o arquivo, apenas o conteúdo
+      const response = await fetch('/api/checkMatch', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+      console.log('Resposta da API:', result);
+      // Exiba a resposta para o usuário ou use conforme necessário
+    } catch (error) {
+      console.error('Erro ao enviar para a API:', error);
+    }
   };
+
 
   return (
     <Card className="w-full max-w-6xl border-primary border-2 shadow-lg">
@@ -87,7 +120,7 @@ export function UserFormCard() {
                 <p className="file-name mt-2 text-sm text-gray-400">{formData.resume.name}</p>
               )}
             </div>
-            
+
             <div className="input-container">
               <textarea
                 id="jobDescription"
@@ -95,8 +128,8 @@ export function UserFormCard() {
                 value={formData.jobDescription}
                 onChange={handleChange}
                 placeholder=" "
-                className="styled-textarea h-64 w-32" 
-                rows={6} 
+                className="styled-textarea h-64 w-32"
+                rows={6}
                 required
               ></textarea>
               <span className="input-label">Descrição da Vaga</span>

@@ -9,7 +9,6 @@ import { Logo } from "./logo";
 import { Button } from "./ui/button";
 
 interface NavProps {
-  forms?: boolean;
   items?: {
     title: string;
     href: string;
@@ -69,14 +68,13 @@ function DesktopItems(props: NavProps) {
   );
 }
 
-export function LandingPageHeader({ forms = false, items }: NavProps) {
+export function LandingPageHeader({ items }: NavProps) {
   const [showMobileMenu, setShowMobileMenu] = React.useState<boolean>(false);
-  const [isVisible, setIsVisible] = React.useState<boolean>(forms);
+  const [isVisible, setIsVisible] = React.useState<boolean>(false);
 
-  if (!forms) {
     React.useEffect(() => {
       const handleScroll = () => {
-        setIsVisible(window.scrollY > 0); // Exibe o header quando o scroll é maior que 0
+        setIsVisible(window.scrollY > 0); 
       };
 
       window.addEventListener("scroll", handleScroll);
@@ -84,7 +82,6 @@ export function LandingPageHeader({ forms = false, items }: NavProps) {
         window.removeEventListener("scroll", handleScroll);
       };
     }, []);
-  }
 
   return (
     <header

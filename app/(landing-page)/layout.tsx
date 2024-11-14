@@ -14,7 +14,7 @@ export default function Layout(props: { children: React.ReactNode }) {
       <Footer
         builtBy="Conect.AI"
         builtByLink=""
-        githubLink="https://github.com/jvsfrancisco"
+        githubLink="https://github.com/jvsfrancisco/"
         twitterLink="https://twitter.com/stack_auth"
         linkedinLink="linkedin.com/company/stack-auth"
       />

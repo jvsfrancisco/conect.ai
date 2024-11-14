@@ -13,19 +13,7 @@ export function Hero(props: {
   primaryCtaText: string;
   primaryCtaLink: string;
 }) {
-  const [headerVisible, setHeaderVisible] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setHeaderVisible(window.scrollY > 0);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-  console.log("headerVisible", headerVisible);
 
   return (
     <section
