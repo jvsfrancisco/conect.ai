@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import EmailIcon from '@mui/icons-material/Email';
 import BadgeIcon from '@mui/icons-material/Badge';
 import { useGPTContext } from "@/contexts/gptContext";
+import { DNA } from "react-loader-spinner";
 
 const vagas = [
   {
@@ -36,6 +37,7 @@ const vagas = [
 // Configuração do worker do PDF.js
 pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/3.6.172/pdf.worker.min.js`;
 
+
 export function UserFormCard() {
   const [formData, setFormData] = useState({
     name: "",
@@ -45,6 +47,7 @@ export function UserFormCard() {
     jobDescription: "",
     selectedVaga: "Outros",
   });
+  const [loading, setLoading] = useState(false); // Adicionando estado de loading
   const { setGptResponse } = useGPTContext();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -63,7 +66,6 @@ export function UserFormCard() {
         resume: file,
       }));
 
-      // Leitura do arquivo PDF com PDF.js
       const fileReader = new FileReader();
       fileReader.onload = async () => {
         const typedArray = new Uint8Array(fileReader.result as ArrayBuffer);
@@ -84,7 +86,7 @@ export function UserFormCard() {
         }));
       };
 
-      fileReader.readAsArrayBuffer(file); // Ler o arquivo como ArrayBuffer
+      fileReader.readAsArrayBuffer(file);
     }
   };
 
@@ -101,9 +103,11 @@ export function UserFormCard() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true); // Inicia o carregamento
 
     if (!formData.resumeContent) {
       alert("Por favor, faça upload de um arquivo antes de enviar.");
+      setLoading(false); // Finaliza o carregamento em caso de erro
       return;
     }
 
@@ -121,8 +125,8 @@ export function UserFormCard() {
       console.log('Resposta da API:', resultJson);
     } catch (error) {
       console.error('Erro ao enviar para a API:', error);
-    }
-    finally {
+    } finally {
+      setLoading(false); // Finaliza o carregamento após a resposta
       if (resultJson) {
         setGptResponse(resultJson.result);
       }
@@ -131,88 +135,96 @@ export function UserFormCard() {
 
   return (
     <>
-      <Card className="relative z-10 w-full max-w-6xl border-primary border-2 shadow-lg">
-        <form onSubmit={handleSubmit}>
-          <CardContent>
-            <div className="space-y-4">
-              <div>
-                <Input
-                  name="name"
-                  type="text"
-                  typeSpan="Name"
-                  value={formData.name}
-                  handleChange={handleChange}
-                >
-                  <BadgeIcon />
-                </Input>
-              </div>
+      {loading ? <DNA
+        visible={true}
+        height="100"
+        width="100"
+        ariaLabel="dna-loading"
+        wrapperStyle={{}}
+        wrapperClass="dna-wrapper"
+      /> :
+        <Card className="relative z-10 w-full max-w-6xl border-primary border-2 shadow-lg">
+          <form onSubmit={handleSubmit}>
+            <CardContent>
+              <div className="space-y-4">
+                <div>
+                  <Input
+                    name="name"
+                    type="text"
+                    typeSpan="Name"
+                    value={formData.name}
+                    handleChange={handleChange}
+                  >
+                    <BadgeIcon />
+                  </Input>
+                </div>
 
-              <div>
-                <Input
-                  name="email"
-                  type="email"
-                  typeSpan="Email"
-                  value={formData.email}
-                  handleChange={handleChange}
-                >
-                  <EmailIcon />
-                </Input>
-              </div>
+                <div>
+                  <Input
+                    name="email"
+                    type="email"
+                    typeSpan="Email"
+                    value={formData.email}
+                    handleChange={handleChange}
+                  >
+                    <EmailIcon />
+                  </Input>
+                </div>
 
-              <div className="relative pt-10 pb-10">
-                <input
-                  type="file"
-                  id="resume"
-                  name="resume"
-                  onChange={handleFileChange}
-                  className="input-file"
-                  required
-                />
-                <label htmlFor="resume" className="custom-file-upload border p-2">
-                  Upload Currículo
-                </label>
-                {formData.resume && (
-                  <p className="file-name mt-2 text-sm">{formData.resume.name}</p>
-                )}
-              </div>
+                <div className="relative pt-10 pb-10">
+                  <input
+                    type="file"
+                    id="resume"
+                    name="resume"
+                    onChange={handleFileChange}
+                    className="input-file"
+                    required
+                  />
+                  <label htmlFor="resume" className="custom-file-upload border p-2">
+                    Upload Currículo
+                  </label>
+                  {formData.resume && (
+                    <p className="file-name mt-2 text-sm">{formData.resume.name}</p>
+                  )}
+                </div>
 
-              <div>
-                <label htmlFor="selectedVaga" className="block text-sm font-medium mb-3">Selecione uma vaga</label>
-                <select
-                  id="selectedVaga"
-                  name="selectedVaga"
-                  value={formData.selectedVaga}
-                  onChange={handleVagaChange}
-                  className="block w-full p-2 border border-gray-300 rounded-md mb-10"
-                >
-                  {vagas.map((vaga) => (
-                    <option className="hover:bg-[#FF6347]"key={vaga.nome} value={vaga.nome}>{vaga.nome}</option>
-                  ))}
-                </select>
-              </div>
+                <div>
+                  <label htmlFor="selectedVaga" className="block text-sm font-medium mb-3">Selecione uma vaga</label>
+                  <select
+                    id="selectedVaga"
+                    name="selectedVaga"
+                    value={formData.selectedVaga}
+                    onChange={handleVagaChange}
+                    className="block w-full p-2 border border-gray-300 rounded-md mb-10"
+                  >
+                    {vagas.map((vaga) => (
+                      <option key={vaga.nome} value={vaga.nome}>{vaga.nome}</option>
+                    ))}
+                  </select>
+                </div>
 
-              <div className="input-container mt-4">
-                <textarea
-                  id="jobDescription"
-                  name="jobDescription"
-                  value={formData.jobDescription}
-                  onChange={handleChange}
-                  placeholder=" "
-                  className="styled-textarea h-64 w-full"
-                  rows={6}
-                  required
-                ></textarea>
-                <span className="input-label">Descrição da Vaga</span>
+                <div className="input-container mt-4">
+                  <textarea
+                    id="jobDescription"
+                    name="jobDescription"
+                    value={formData.jobDescription}
+                    onChange={handleChange}
+                    placeholder=" "
+                    className="styled-textarea h-64 w-full"
+                    rows={6}
+                    required
+                  ></textarea>
+                  <span className="input-label">Descrição da Vaga</span>
+                </div>
               </div>
-            </div>
-          </CardContent>
-          <CardFooter className="flex justify-end">
-            <Button type="submit" className={cn(buttonVariants({ size: "default", variant: "default" }))}>
-              Enviar
-            </Button>
-          </CardFooter>
-        </form>
-      </Card>
+            </CardContent>
+            <CardFooter className="flex justify-end">
+              <Button type="submit" className={cn(buttonVariants({ size: "default", variant: "default" }))}>
+                {loading ? "Carregando..." : "Enviar"}
+              </Button>
+            </CardFooter>
+          </form>
+        </Card>}
     </>
   );
 }
