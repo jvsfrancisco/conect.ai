@@ -266,3 +266,28 @@ html {
 ::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(45deg, #FF4500, #FF6347);
 }
+
+select {
+  appearance: none;
+  padding-right: 2rem;
+  border-radius: 0.5rem;
+  border: 1px solid;
+  transition: border-color 0.3s ease;
+  &:hover{
+    border-color: #F8711DFF;
+  }
+  &:focus {
+    outline: none;
+    border-color: #F8711DFF;
+  }
+
+}
+
+option {
+  background: var(--background);
+  color: var(--foreground);
+  &:hover {
+    background: #FF6347;
+    color: #fff;
+  }
+}

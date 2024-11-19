@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState } from "react";
-import * as pdfjsLib from 'pdfjs-dist/legacy/build/pdf'
+import * as pdfjsLib from 'pdfjs-dist/legacy/build/pdf';
 import { buttonVariants, Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
@@ -10,7 +10,28 @@ import EmailIcon from '@mui/icons-material/Email';
 import BadgeIcon from '@mui/icons-material/Badge';
 import { useGPTContext } from "@/contexts/gptContext";
 
-
+const vagas = [
+  {
+    nome: "Programa de Estágio Vivo",
+    descrição: "Ser estudante de ensino superior, com matrícula ativa em cursos de bacharelado ou tecnólogo; Ter disponibilidade para estagiar 6 horas por dia (30h semanais); Estar liberado pela sua instituição de ensino para realizar estágio remunerado. Possuir previsão de formatura entre jul/2026 e jul/2027, garantindo que possa estagiar por pelo menos 01 ano;"
+  },
+  {
+    nome: "Programa de Estágio Icatu Seguros",
+    descrição: "Estudantes a partir do 2º período e que estejam, no mínimo, a um ano e meio da formatura (previsão para 2026.2). Dos cursos de: Tecnologia (todos), Engenharia de Produção, Ciências Atuariais, Ciências Econômicas, Ciências Contábeis, Administração, Estatística, Psicologia, Direito, Comunicação, Design"
+  },
+  {
+    nome: "Programa de Estágio Santander",
+    descrição: "Cursando a partir do segundo semestre da graduação; Disponibilidade de estagiar 4h ou 6h por dia"
+  },
+  {
+    nome: "Programa de Estágio Nestlé",
+    descrição: "Estar cursando ensino superior, a partir do terceiro semestre até o penúltimo semestre (faltando 1 ano para a conclusão do curso); Todos os cursos superiores bacharelado e técnicos são aceitos; Conhecimento básico do pacote office (Word, Excel, Power Point); Possuir disponibilidade para estagiar 6 horas diárias no modelo de trabalho híbrido (3 vezes por semana no escritório e 2 vezes por semana de maneira remota); Ter muita vontade de aprender e construir com a gente. Morar em SP ou região."
+  },
+  {
+    nome: "Outros",
+    descrição: ""
+  }
+];
 
 // Configuração do worker do PDF.js
 pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/3.6.172/pdf.worker.min.js`;
@@ -22,9 +43,9 @@ export function UserFormCard() {
     resume: null as File | null,
     resumeContent: "",
     jobDescription: "",
+    selectedVaga: "Outros",
   });
   const { setGptResponse } = useGPTContext();
-
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -65,6 +86,17 @@ export function UserFormCard() {
 
       fileReader.readAsArrayBuffer(file); // Ler o arquivo como ArrayBuffer
     }
+  };
+
+  const handleVagaChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedVaga = e.target.value;
+    setFormData((prevData) => ({
+      ...prevData,
+      selectedVaga,
+      jobDescription: selectedVaga !== "Outros"
+        ? vagas.find(vaga => vaga.nome === selectedVaga)?.descrição || ""
+        : "",
+    }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -144,14 +176,29 @@ export function UserFormCard() {
                 )}
               </div>
 
-              <div className="input-container ">
+              <div>
+                <label htmlFor="selectedVaga" className="block text-sm font-medium mb-3">Selecione uma vaga</label>
+                <select
+                  id="selectedVaga"
+                  name="selectedVaga"
+                  value={formData.selectedVaga}
+                  onChange={handleVagaChange}
+                  className="block w-full p-2 border border-gray-300 rounded-md mb-10"
+                >
+                  {vagas.map((vaga) => (
+                    <option className="hover:bg-[#FF6347]"key={vaga.nome} value={vaga.nome}>{vaga.nome}</option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="input-container mt-4">
                 <textarea
                   id="jobDescription"
                   name="jobDescription"
                   value={formData.jobDescription}
                   onChange={handleChange}
                   placeholder=" "
-                  className="styled-textarea h-64 w-32"
+                  className="styled-textarea h-64 w-full"
                   rows={6}
                   required
                 ></textarea>

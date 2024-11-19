@@ -10,8 +10,8 @@ export default function Layout(props: { children: React.ReactNode }) {
         builtBy="Conect.AI"
         builtByLink=""
         githubLink="https://github.com/jvsfrancisco/"
-        twitterLink="https://twitter.com/stack_auth"
-        linkedinLink="linkedin.com/company/stack-auth"
+        twitterLink=""
+        linkedinLink="https://linkedin.com/in/jvsfranisco"
       />
     </div>
   );
