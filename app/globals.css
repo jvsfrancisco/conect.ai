@@ -156,15 +156,16 @@ html {
 .custom-file-upload {
   display: inline-block;
   padding: 10px 20px;
-  color: #fff;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 14px;
   text-align: center;
+  border: 1px solid;
   transition: background-color 0.3s ease;
   &:hover {
     background: linear-gradient(45deg, #F8711DFF, #FF0800FF);
     animation: pulse-hover 1.5s;
+    color: #fff;
+    border: none;
   }
 }
 
@@ -178,10 +179,9 @@ html {
 .styled-input {
   width: 100%;
   border: none;
-  border-bottom: 2px solid #fff;
+  border-bottom: 2px solid;
   background: transparent;
   padding: 10px 30px 10px 10px; /* Adicione padding à direita para o ícone */
-  color: #fff;
   font-size: 1rem;
   transition: border-bottom 0.3s ease;
 }
@@ -196,7 +196,6 @@ html {
   top: 50%;
   left: 10px;
   transform: translateY(-50%);
-  color: #fff;
   transition: all 0.3s ease;
 }
 
@@ -204,7 +203,6 @@ html {
 .styled-input:not(:placeholder-shown) ~ .input-label {
   top: -10px;
   font-size: 0.75rem;
-  color: #fff;
 }
 
 .input-container svg {
@@ -214,15 +212,13 @@ html {
   transform: translateY(-50%);
   width: 1.5rem; /* Ajuste o tamanho do ícone */
   height: 1.5rem;
-  fill: #fff; /* Cor do ícone */
 }
 
 .styled-textarea {
   width: 100%;
   border: none;
-  border-bottom: 2px solid #fff;
+  border-bottom: 2px solid;
   background-color: transparent;
-  color: #fff;
   padding: 0.5rem 0;
   font-size: 1rem;
   resize: none;
@@ -238,7 +234,6 @@ html {
 .styled-textarea:not(:placeholder-shown) ~ .input-label {
   transform: translateY(-2rem);
   font-size: 0.75rem;
-  color: #ffffff;
 }
 
 .input-label {
@@ -246,7 +241,28 @@ html {
   left: 0;
   top: 0.75rem;
   font-size: 1rem;
-  color: #fff;
   pointer-events: none;
   transition: all 0.3s ease;
+}
+
+/* Estiliza a largura e altura da barra de rolagem */
+::-webkit-scrollbar {
+  width: 3px;
+  height: 3px;
+}
+
+/* Estiliza a cor de fundo da barra de rolagem */
+::-webkit-scrollbar-track {
+  background: none;
+  border-radius: 10px;
+}
+
+/* Estiliza a cor do polegar (thumb) da barra de rolagem */
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+}
+
+/* Estiliza o hover no polegar da barra de rolagem */
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(45deg, #FF4500, #FF6347);
 }

@@ -15,6 +15,7 @@ interface NavProps {
     disabled?: boolean;
     external?: boolean;
   }[];
+  isFormsPage?: boolean;
 }
 
 function MobileItems(props: NavProps) {
@@ -68,13 +69,13 @@ function DesktopItems(props: NavProps) {
   );
 }
 
-export function LandingPageHeader({ items }: NavProps) {
+export function LandingPageHeader({ items, isFormsPage = true }: NavProps) {
   const [showMobileMenu, setShowMobileMenu] = React.useState<boolean>(false);
-  const [isVisible, setIsVisible] = React.useState<boolean>(false);
+  const [isVisible, setIsVisible] = React.useState<boolean>(isFormsPage);
 
     React.useEffect(() => {
       const handleScroll = () => {
-        setIsVisible(window.scrollY > 0); 
+        setIsVisible(window.scrollY > 0 || isFormsPage); 
       };
 
       window.addEventListener("scroll", handleScroll);

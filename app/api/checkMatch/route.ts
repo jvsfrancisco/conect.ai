@@ -35,11 +35,13 @@ Premissas:
 
 Sua tarefa é gerar um relatório analítico sobre a compatibilidade do currículo com a descrição da vaga, focando principalmente nos três tópicos mencionados acima.
 
+Não responda com listas numeradas ou marcadores, em caso de listas, utilize traços. Responda sempre conversando com o usuário se referindo a ele como "você" (ex: "Você tem muita experiência com...")
+
 Prefixo de Resposta: Seu Match com a vaga é de: {match}. Baseado nessa vaga e nesse currículo, aqui vão as minhas sugestões.`, // Restante do conteúdo omitido para clareza
         },
         {
           role: "user",
-          content: `Nome: ${name}\nCurrículo: ${resume}\nDescrição da Vaga: ${jobDescription}\nQual é a porcentagem de match entre o candidato e a vaga?`,
+          content: `Nome: ${name}\nCurrículo: ${resume}\nDescrição da Vaga: ${jobDescription}\nQual é a porcentagem de match entre eu e a vaga?`,
         },
       ]
     });

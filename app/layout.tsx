@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Provider } from "./provider";
+import { GPTProvider } from "../contexts/gptContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,7 +20,9 @@ export default function RootLayout({
     <html lang="pt-br" suppressHydrationWarning>
       <body className={inter.className}>
         <Provider>
+          <GPTProvider>
           {children}
+          </GPTProvider>
         </Provider>
       </body>
     </html>

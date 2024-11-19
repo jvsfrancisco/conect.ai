@@ -4,7 +4,6 @@ import Particle from "@/components/ui/particles";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import { useState, useEffect } from "react";
 
 export function Hero(props: {
   title2: string;
