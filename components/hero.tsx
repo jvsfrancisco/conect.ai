@@ -24,7 +24,7 @@ export function Hero(props: {
 
       <div className="container relative z-10 flex max-w-[64rem] flex-col items-center gap-8 text-center">
         <h1 className="font-heading font-medium text-5xl sm:text-5xl lg:text-7xl">
-          Conect<span className="bg-clip-text text-transparent bg-gradient-to-r from-[#ff8c45] to-[#ff0000]">.</span>AI
+          Connect<span className="bg-clip-text text-transparent bg-gradient-to-r from-[#ff8c45] to-[#ff0000]">.</span>AI
         </h1>
         <span className="font-heading font-semibold text-4xl sm:text-4xl lg:text-6xl bg-clip-text text-transparent bg-gradient-to-r from-[#ff8c45] to-[#ff0000]">
           {props.title2}
