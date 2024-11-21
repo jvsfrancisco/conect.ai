@@ -22,7 +22,7 @@ export function Hero(props: {
     >
       <Particle />
 
-      <div className="container relative z-10 flex max-w-[64rem] flex-col items-center gap-8 text-center">
+      <div className="container relative z-10 flex max-w-[64rem] flex-col items-center gap-8 text-center -mt-12">
         <h1 className="font-heading font-medium text-5xl sm:text-5xl lg:text-7xl">
           Connect<span className="bg-clip-text text-transparent bg-gradient-to-r from-[#ff8c45] to-[#ff0000]">.</span>AI
         </h1>
