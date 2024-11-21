@@ -7,7 +7,7 @@ import { GPTProvider } from "../contexts/gptContext";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Conect.AI",
+  title: "Connect.AI",
   description: "Conectando alunos ao mercado",
 };
 
