@@ -260,11 +260,12 @@ html {
 /* Estiliza a cor do polegar (thumb) da barra de rolagem */
 ::-webkit-scrollbar-thumb {
   border-radius: 10px;
+  background: linear-gradient(45deg, #FF4500, #FF6347);
 }
 
 /* Estiliza o hover no polegar da barra de rolagem */
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(45deg, #FF4500, #FF6347);
+  background: #fff
 }
 
 select {
