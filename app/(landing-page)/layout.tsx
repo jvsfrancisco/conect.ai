@@ -13,7 +13,7 @@ export default function Layout(props: { children: React.ReactNode }) {
       />
       <main className="flex-1">{props.children}</main>
       <Footer
-        builtBy="Conect.AI"
+        builtBy="Connect.AI"
         builtByLink=""
         githubLink="https://github.com/jvsfrancisco/"
         twitterLink="https://twitter.com/stack_auth"
